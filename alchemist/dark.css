@@ -1,1 +1,658 @@
+/* ===================================================================
+   THE ALCHEMIST V1 - DARK MODE STYLES
+   Comprehensive dark mode implementation for optimal user experience
+   ================================================================= */
 
+/* === ROOT DARK MODE VARIABLES === */
+:root {
+  --dark-bg: #1a1a1a;
+  --dark-bg-secondary: #2d2d2d;
+  --dark-bg-tertiary: #3a3a3a;
+  --dark-text: #e0e0e0;
+  --dark-text-secondary: #b0b0b0;
+  --dark-border: #404040;
+  --dark-accent: #74b9ff;
+  --dark-accent-hover: #0984e3;
+  --dark-success: #55a3ff;
+  --dark-warning: #ffa502;
+  --dark-danger: #ff4757;
+}
+
+/* === DARK MODE TOGGLE STATE === */
+.dark-mode {
+  color-scheme: dark;
+}
+
+/* === BODY AND BACKGROUND === */
+.dark-mode body {
+  background: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+/* === HEADER DARK MODE === */
+.dark-mode .site-header {
+  background: var(--dark-bg-secondary);
+  border-bottom: 1px solid var(--dark-border);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.dark-mode .site-title {
+  color: var(--dark-text);
+}
+
+.dark-mode .site-title:hover {
+  color: var(--dark-accent);
+}
+
+/* === NAVIGATION DARK MODE === */
+.dark-mode .main-navigation {
+  background: var(--dark-bg-tertiary);
+}
+
+.dark-mode .nav-menu a {
+  color: var(--dark-text);
+}
+
+.dark-mode .nav-menu a:hover {
+  background: rgba(116, 185, 255, 0.1);
+  color: var(--dark-accent);
+}
+
+/* === BREAKING NEWS DARK MODE === */
+.dark-mode .breaking-news {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text);
+}
+
+.dark-mode .breaking-scroll a {
+  color: var(--dark-text);
+}
+
+.dark-mode .breaking-scroll a:hover {
+  color: var(--dark-accent);
+}
+
+/* === SEARCH DARK MODE === */
+.dark-mode .search-container {
+  background: var(--dark-bg-secondary);
+}
+
+.dark-mode .search-form {
+  background: var(--dark-bg-tertiary);
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode .search-input {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text);
+  border: none;
+}
+
+.dark-mode .search-input::placeholder {
+  color: var(--dark-text-secondary);
+}
+
+.dark-mode .search-button {
+  background: var(--dark-accent);
+  color: white;
+}
+
+.dark-mode .search-button:hover {
+  background: var(--dark-accent-hover);
+}
+
+/* === MAIN CONTENT DARK MODE === */
+.dark-mode .main-container {
+  background: transparent;
+}
+
+/* === POST CARDS DARK MODE === */
+.dark-mode .post-card {
+  background: var(--dark-bg-secondary);
+  border: 1px solid var(--dark-border);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.dark-mode .post-card:hover {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  border-color: var(--dark-accent);
+}
+
+.dark-mode .post-title a {
+  color: var(--dark-text);
+}
+
+.dark-mode .post-title a:hover {
+  color: var(--dark-accent);
+}
+
+.dark-mode .post-excerpt {
+  color: var(--dark-text-secondary);
+}
+
+.dark-mode .post-meta {
+  color: var(--dark-text-secondary);
+}
+
+/* === POST BODY DARK MODE === */
+.dark-mode .post-body {
+  color: var(--dark-text) !important;
+}
+
+.dark-mode .post-body h2,
+.dark-mode .post-body h3,
+.dark-mode .post-body h4,
+.dark-mode .post-body h5,
+.dark-mode .post-body h6 {
+  color: var(--dark-text);
+}
+
+.dark-mode .post-body p {
+  color: var(--dark-text);
+}
+
+.dark-mode .post-body a {
+  color: var(--dark-accent);
+}
+
+.dark-mode .post-body a:hover {
+  color: var(--dark-accent-hover);
+}
+
+.dark-mode .post-body blockquote {
+  background: var(--dark-bg-tertiary);
+  border-left: 4px solid var(--dark-accent);
+  color: var(--dark-text-secondary);
+}
+
+.dark-mode .post-body code {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-accent);
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode .post-body pre {
+  background: var(--dark-bg-tertiary);
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode .post-body table {
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode .post-body th {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text);
+  border-bottom: 1px solid var(--dark-border);
+}
+
+.dark-mode .post-body td {
+  border-bottom: 1px solid var(--dark-border);
+  color: var(--dark-text);
+}
+
+/* === TABLE OF CONTENTS DARK MODE === */
+.dark-mode .table-of-contents {
+  background: var(--dark-bg-secondary);
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode .table-of-contents h3 {
+  color: var(--dark-text);
+  border-bottom-color: var(--dark-accent);
+}
+
+.dark-mode .table-of-contents a {
+  color: var(--dark-text-secondary);
+}
+
+.dark-mode .table-of-contents a:hover,
+.dark-mode .table-of-contents a.active {
+  color: var(--dark-accent);
+  background: rgba(116, 185, 255, 0.1);
+}
+
+/* === SOCIAL SHARING DARK MODE === */
+.dark-mode .social-share {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+.dark-mode .share-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--dark-text);
+}
+
+.dark-mode .share-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* === BREADCRUMBS DARK MODE === */
+.dark-mode .breadcrumbs {
+  background: var(--dark-bg-secondary);
+  border-bottom: 1px solid var(--dark-border);
+}
+
+.dark-mode .breadcrumbs a {
+  color: var(--dark-text-secondary);
+}
+
+.dark-mode .breadcrumbs a:hover {
+  color: var(--dark-accent);
+}
+
+.dark-mode .breadcrumbs span {
+  color: var(--dark-text-secondary);
+}
+
+/* === PAGINATION DARK MODE === */
+.dark-mode .page-link {
+  background: var(--dark-bg-secondary);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+
+.dark-mode .page-link:hover {
+  background: var(--dark-accent);
+  border-color: var(--dark-accent);
+  color: white;
+}
+
+/* === SIDEBAR DARK MODE === */
+.dark-mode .sidebar {
+  background: var(--dark-bg-secondary);
+  border: 1px solid var(--dark-border);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* === WIDGETS DARK MODE === */
+.dark-mode .widget {
+  background: var(--dark-bg-secondary);
+  border: 1px solid var(--dark-border);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.dark-mode .widget:hover {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+.dark-mode .widget-title {
+  color: var(--dark-text);
+}
+
+.dark-mode .widget-title::after {
+  background: linear-gradient(90deg, var(--dark-accent), #74b9ff);
+}
+
+/* === POPULAR POSTS DARK MODE === */
+.dark-mode .popular-posts li {
+  border-bottom-color: var(--dark-border);
+}
+
+.dark-mode .popular-posts li:hover {
+  background: var(--dark-bg-tertiary);
+}
+
+.dark-mode .popular-posts .post-title {
+  color: var(--dark-text-secondary);
+}
+
+.dark-mode .popular-posts a:hover .post-title {
+  color: var(--dark-accent);
+}
+
+/* === FOOTER DARK MODE === */
+.dark-mode .site-footer {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+.dark-mode .footer-section a {
+  color: rgba(224, 224, 224, 0.8);
+}
+
+.dark-mode .footer-section a:hover {
+  color: var(--dark-accent);
+}
+
+.dark-mode .social-links a {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .social-links a:hover {
+  background: rgba(116, 185, 255, 0.2);
+}
+
+.dark-mode .newsletter-form input {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text);
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode .newsletter-form input::placeholder {
+  color: var(--dark-text-secondary);
+}
+
+.dark-mode .newsletter-form button {
+  background: var(--dark-accent);
+}
+
+.dark-mode .newsletter-form button:hover {
+  background: var(--dark-accent-hover);
+}
+
+.dark-mode .footer-bottom {
+  border-top-color: var(--dark-border);
+}
+
+/* === BACK TO TOP DARK MODE === */
+.dark-mode .back-to-top {
+  background: var(--dark-accent);
+  box-shadow: 0 4px 15px rgba(116, 185, 255, 0.3);
+}
+
+.dark-mode .back-to-top:hover {
+  background: var(--dark-accent-hover);
+  box-shadow: 0 6px 20px rgba(116, 185, 255, 0.4);
+}
+
+/* === DARK MODE TOGGLE BUTTON === */
+.dark-mode .dark-mode-toggle {
+  background: var(--dark-bg-secondary);
+  color: var(--dark-text);
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode .dark-mode-toggle:hover {
+  background: var(--dark-accent);
+  color: white;
+  border-color: var(--dark-accent);
+}
+
+/* === SEARCH SUGGESTIONS DARK MODE === */
+.dark-mode .search-suggestions {
+  background: var(--dark-bg-secondary);
+  border-color: var(--dark-border);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.dark-mode .search-suggestion {
+  border-bottom-color: var(--dark-border);
+  color: var(--dark-text);
+}
+
+.dark-mode .search-suggestion:hover {
+  background: var(--dark-bg-tertiary);
+}
+
+/* === COMMENTS DARK MODE === */
+.dark-mode .comments-section {
+  background: var(--dark-bg-secondary);
+  border: 1px solid var(--dark-border);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.dark-mode .comments-title {
+  color: var(--dark-text);
+}
+
+/* === RELATED POSTS DARK MODE === */
+.dark-mode .related-posts {
+  background: var(--dark-bg-secondary);
+  border: 1px solid var(--dark-border);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.dark-mode .related-posts h3 {
+  color: var(--dark-text);
+}
+
+.dark-mode .related-post-card {
+  border-color: var(--dark-border);
+  background: var(--dark-bg-tertiary);
+}
+
+.dark-mode .related-post-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.dark-mode .related-post-card a {
+  color: var(--dark-text-secondary);
+}
+
+.dark-post-card a:hover {
+  color: var(--dark-accent);
+}
+
+/* === READING PROGRESS DARK MODE === */
+.dark-mode .reading-progress {
+  background: linear-gradient(90deg, var(--dark-accent), #74b9ff);
+}
+
+/* === CONTENT WARNING DARK MODE === */
+.dark-mode .content-warning {
+  background: var(--dark-bg-tertiary);
+  border-color: var(--dark-warning);
+  color: var(--dark-warning);
+}
+
+/* === FORM ELEMENTS DARK MODE === */
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text);
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode input:focus,
+.dark-mode textarea:focus,
+.dark-mode select:focus {
+  border-color: var(--dark-accent);
+  outline-color: var(--dark-accent);
+}
+
+.dark-mode input::placeholder,
+.dark-mode textarea::placeholder {
+  color: var(--dark-text-secondary);
+}
+
+/* === BUTTON ELEMENTS DARK MODE === */
+.dark-mode button {
+  background: var(--dark-bg-tertiary);
+  color: var(--dark-text);
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode button:hover {
+  background: var(--dark-accent);
+  border-color: var(--dark-accent);
+  color: white;
+}
+
+/* === CUSTOM BUTTONS DARK MODE === */
+.dark-mode .post-body .download-button {
+  background-color: var(--dark-accent) !important;
+  box-shadow: 0 2px 10px rgba(116, 185, 255, 0.3);
+}
+
+.dark-mode .post-body .download-button:hover {
+  background-color: var(--dark-accent-hover) !important;
+  box-shadow: 0 4px 15px rgba(116, 185, 255, 0.4);
+}
+
+.dark-mode .post-body .demo-button {
+  background-color: var(--dark-warning) !important;
+  box-shadow: 0 2px 10px rgba(255, 165, 2, 0.3);
+}
+
+.dark-mode .post-body .demo-button:hover {
+  background-color: #e67e22 !important;
+  box-shadow: 0 4px 15px rgba(255, 165, 2, 0.4);
+}
+
+/* === SCROLLBAR DARK MODE === */
+.dark-mode ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+  background: var(--dark-bg-secondary);
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: var(--dark-border);
+  border-radius: 4px;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-accent);
+}
+
+/* === SELECTION DARK MODE === */
+.dark-mode ::selection {
+  background: var(--dark-accent);
+  color: white;
+}
+
+.dark-mode ::-moz-selection {
+  background: var(--dark-accent);
+  color: white;
+}
+
+/* === MOBILE DARK MODE ADJUSTMENTS === */
+@media (max-width: 768px) {
+  .dark-mode .nav-menu {
+    background: var(--dark-bg-tertiary);
+    border: 1px solid var(--dark-border);
+  }
+  
+  .dark-mode .nav-menu a {
+    border-bottom-color: var(--dark-border);
+  }
+}
+
+/* === HIGH CONTRAST DARK MODE === */
+@media (prefers-contrast: high) {
+  .dark-mode {
+    --dark-bg: #000000;
+    --dark-text: #ffffff;
+    --dark-accent: #ffffff;
+    --dark-border: #ffffff;
+  }
+  
+  .dark-mode .post-card,
+  .dark-mode .widget {
+    border: 2px solid var(--dark-border);
+  }
+}
+
+/* === REDUCED MOTION DARK MODE === */
+@media (prefers-reduced-motion: reduce) {
+  .dark-mode * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* === FOCUS STYLES DARK MODE === */
+.dark-mode *:focus {
+  outline: 3px solid var(--dark-accent);
+}
+
+/* === PRINT STYLES DARK MODE === */
+@media print {
+  .dark-mode {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .dark-mode * {
+    background: white !important;
+    color: black !important;
+    border-color: black !important;
+  }
+}
+
+/* === LOADING STATES DARK MODE === */
+.dark-mode .skeleton {
+  background: linear-gradient(90deg, var(--dark-bg-tertiary) 25%, var(--dark-border) 50%, var(--dark-bg-tertiary) 75%);
+}
+
+/* === TRANSITION STATES === */
+.dark-mode-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+}
+
+/* === SPECIAL ELEMENTS DARK MODE === */
+.dark-mode .highlight {
+  background: var(--dark-warning);
+  color: var(--dark-bg);
+}
+
+.dark-mode .badge {
+  background: var(--dark-accent);
+  color: white;
+}
+
+.dark-mode .alert {
+  background: var(--dark-bg-tertiary);
+  border: 1px solid var(--dark-border);
+  color: var(--dark-text);
+}
+
+.dark-mode .alert.success {
+  border-color: var(--dark-success);
+  background: rgba(85, 163, 255, 0.1);
+}
+
+.dark-mode .alert.warning {
+  border-color: var(--dark-warning);
+  background: rgba(255, 165, 2, 0.1);
+}
+
+.dark-mode .alert.danger {
+  border-color: var(--dark-danger);
+  background: rgba(255, 71, 87, 0.1);
+}
+
+/* === SMOOTH THEME SWITCHING === */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* === ACCESSIBILITY ENHANCEMENTS === */
+.dark-mode .sr-only {
+  /* Screen reader only content remains unchanged */
+}
+
+.dark-mode .skip-link {
+  background: var(--dark-bg);
+  color: var(--dark-text);
+  border: 1px solid var(--dark-accent);
+}
+
+.dark-mode .skip-link:focus {
+  background: var(--dark-accent);
+  color: white;
+}
+
+/* === PERFORMANCE OPTIMIZATIONS === */
+.dark-mode img {
+  filter: brightness(0.9) contrast(1.1);
+}
+
+.dark-mode .post-thumbnail {
+  filter: brightness(0.85) contrast(1.2);
+}
+
+/* === CUSTOM PROPERTIES FOR DYNAMIC THEMING === */
+.dark-mode {
+  --shadow-light: rgba(0,0,0,0.1);
+  --shadow-medium: rgba(0,0,0,0.2);
+  --shadow-heavy: rgba(0,0,0,0.3);
+  --overlay-light: rgba(255,255,255,0.05);
+  --overlay-medium: rgba(255,255,255,0.1);
+  --overlay-heavy: rgba(255,255,255,0.15);
+}
