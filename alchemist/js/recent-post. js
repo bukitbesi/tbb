@@ -1,70 +1,67 @@
-// --- Configuration ---
-const config = {
-    blogURL: "https://bukitbesi.blogspot.com",
-    numposts: 5,
-    showpostthumbnails: true,
-    showpostdate: true,
-};
+/**
+ * Processes the Blogger JSON feed and displays recent posts.
+ * This function is intended to be used as a callback.
+ * @param {object} json - The JSON object provided by the Blogger feed.
+ */
+function displayRecentPostsArlina(json) {
+    // --- Configuration ---
+    const config = {
+        numposts: 5,
+        showpostthumbnails: true,
+        showpostdate: true,
+    };
 
-// --- Main Function ---
-document.addEventListener("DOMContentLoaded", function() {
     const container = document.getElementById("recent-posts-container");
     if (!container) {
         console.error("Recent posts container not found.");
         return;
     }
 
-    // Construct the JSON feed URL
-    const feedURL = `${config.blogURL}/feeds/posts/default?alt=json-in-script&max-results=${config.numposts}&orderby=published`;
+    const posts = json.feed.entry || [];
+    // Ensure we only display the number of posts specified in the config
+    const postsToShow = posts.slice(0, config.numposts);
 
-    // Fetch and display the recent posts
-    fetch(feedURL)
-        .then(response => response.text())
-        .then(text => {
-            // Blogger's JSON feed is wrapped in a function call, we need to extract the JSON object.
-            const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
-            const data = JSON.parse(jsonString);
-            const posts = data.feed.entry || [];
+    if (postsToShow.length === 0) {
+        container.innerHTML = "<li>No recent posts to display.</li>";
+        return;
+    }
 
-            let html = '<ul class="recent_posts_arlina">';
+    let html = '<ul class="recent_posts_arlina">';
 
-            posts.forEach(post => {
-                const postTitle = post.title.$t;
-                const postURL = post.link.find(link => link.rel === 'alternate').href;
-                const postDate = new Date(post.published.$t).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-
-                let thumbnailHTML = '';
-                if (config.showpostthumbnails && post.media$thumbnail) {
-                    thumbnailHTML = `
-                        <div class="wrapinfo">
-                            <a href="${postURL}" aria-label="Read more about ${postTitle}">
-                                <img class="recent_thumb" src="${post.media$thumbnail.url.replace('/s72-c/', '/s1600/')}" alt="Thumbnail for ${postTitle}">
-                            </a>
-                        </div>`;
-                }
-
-                let dateHTML = '';
-                if (config.showpostdate) {
-                    dateHTML = `<i>${postDate}</i>`;
-                }
-
-                html += `
-                    <li>
-                        ${thumbnailHTML}
-                        <a href="${postURL}" aria-label="Read more about ${postTitle}">${postTitle}</a>
-                        ${dateHTML}
-                    </li>`;
-            });
-
-            html += '</ul>';
-            container.innerHTML = html;
-        })
-        .catch(error => {
-            console.error("Error fetching recent posts:", error);
-            container.innerHTML = "<p>Could not load recent posts.</p>";
+    postsToShow.forEach(post => {
+        const postTitle = post.title.$t;
+        const postURL = post.link.find(link => link.rel === 'alternate').href;
+        const postDate = new Date(post.published.$t).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
         });
-});
+
+        let thumbnailHTML = '';
+        if (config.showpostthumbnails && post.media$thumbnail) {
+            // Higher quality thumbnail by replacing s72-c with s1600
+            const thumbnailUrl = post.media$thumbnail.url.replace('/s72-c/', '/s400/');
+            thumbnailHTML = `
+                <div class="wrapinfo">
+                    <a href="${postURL}" aria-label="Read more about ${postTitle}">
+                        <img class="recent_thumb" src="${thumbnailUrl}" alt="Thumbnail for ${postTitle}">
+                    </a>
+                </div>`;
+        }
+
+        let dateHTML = '';
+        if (config.showpostdate) {
+            dateHTML = `<i>${postDate}</i>`;
+        }
+
+        html += `
+            <li>
+                ${thumbnailHTML}
+                <a href="${postURL}">${postTitle}</a>
+                ${dateHTML}
+            </li>`;
+    });
+
+    html += '</ul>';
+    container.innerHTML = html;
+}
