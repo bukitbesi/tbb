@@ -1,0 +1,34 @@
+const numposts = 5;
+const showpostthumbnails = true;
+const blogUrl = window.location.origin;
+const feedUrl = `${blogUrl}/feeds/posts/default?orderby=published&alt=json`;
+
+async function fetchRecentPosts() {
+  try {
+    const res = await fetch(feedUrl);
+    const data = await res.json();
+    const entries = data.feed.entry || [];
+    const container = document.getElementById("recent-posts");
+
+    const items = entries.slice(0, numposts).map(entry => {
+      const title = entry.title.$t;
+      const link = entry.link.find(l => l.rel === 'alternate').href;
+      const mediaThumbnail = entry.media$thumbnail ? entry.media$thumbnail.url.replace(/s72\-c/, 's160-c') : '';
+      const publishedDate = new Date(entry.published.$t).toLocaleDateString('ms-MY', { year: 'numeric', month: 'short', day: 'numeric' });
+
+      return `
+        <li>
+          ${showpostthumbnails && mediaThumbnail ? `<div class=\"wrapinfo\"><img class=\"recent_thumb\" src=\"${mediaThumbnail}\" alt=\"${title}\" loading=\"lazy\"></div>` : ''}
+          <a href=\"${link}\" title=\"${title}\">${title}</a><br>
+          <i>${publishedDate}</i>
+        </li>
+      `;
+    });
+
+    container.innerHTML = items.join('');
+  } catch (err) {
+    console.error("Failed to load recent posts:", err);
+  }
+}
+
+fetchRecentPosts();
