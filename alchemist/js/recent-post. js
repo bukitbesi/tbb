@@ -1,6 +1,6 @@
 // --- Configuration ---
 const config = {
-    blogURL: "YOUR_BLOG_URL", // Change this to your blog's URL (e.g., "https://yourblog.blogspot.com")
+    blogURL: "https://bukitbesi.blogspot.com",
     numposts: 5,
     showpostthumbnails: true,
     showpostdate: true,
