@@ -1,34 +1,70 @@
-const numposts = 5;
-const showpostthumbnails = true;
-const blogUrl = window.location.origin;
-const feedUrl = `${blogUrl}/feeds/posts/default?orderby=published&alt=json`;
+// --- Configuration ---
+const config = {
+    blogURL: "https://bukitbesi.blogspot.com",
+    numposts: 5,
+    showpostthumbnails: true,
+    showpostdate: true,
+};
 
-async function fetchRecentPosts() {
-  try {
-    const res = await fetch(feedUrl);
-    const data = await res.json();
-    const entries = data.feed.entry || [];
-    const container = document.getElementById("recent-posts");
+// --- Main Function ---
+document.addEventListener("DOMContentLoaded", function() {
+    const container = document.getElementById("recent-posts-container");
+    if (!container) {
+        console.error("Recent posts container not found.");
+        return;
+    }
 
-    const items = entries.slice(0, numposts).map(entry => {
-      const title = entry.title.$t;
-      const link = entry.link.find(l => l.rel === 'alternate').href;
-      const mediaThumbnail = entry.media$thumbnail ? entry.media$thumbnail.url.replace(/s72\-c/, 's160-c') : '';
-      const publishedDate = new Date(entry.published.$t).toLocaleDateString('ms-MY', { year: 'numeric', month: 'short', day: 'numeric' });
+    // Construct the JSON feed URL
+    const feedURL = `${config.blogURL}/feeds/posts/default?alt=json-in-script&max-results=${config.numposts}&orderby=published`;
 
-      return `
-        <li>
-          ${showpostthumbnails && mediaThumbnail ? `<div class=\"wrapinfo\"><img class=\"recent_thumb\" src=\"${mediaThumbnail}\" alt=\"${title}\" loading=\"lazy\"></div>` : ''}
-          <a href=\"${link}\" title=\"${title}\">${title}</a><br>
-          <i>${publishedDate}</i>
-        </li>
-      `;
-    });
+    // Fetch and display the recent posts
+    fetch(feedURL)
+        .then(response => response.text())
+        .then(text => {
+            // Blogger's JSON feed is wrapped in a function call, we need to extract the JSON object.
+            const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+            const data = JSON.parse(jsonString);
+            const posts = data.feed.entry || [];
 
-    container.innerHTML = items.join('');
-  } catch (err) {
-    console.error("Failed to load recent posts:", err);
-  }
-}
+            let html = '<ul class="recent_posts_arlina">';
 
-fetchRecentPosts();
+            posts.forEach(post => {
+                const postTitle = post.title.$t;
+                const postURL = post.link.find(link => link.rel === 'alternate').href;
+                const postDate = new Date(post.published.$t).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+
+                let thumbnailHTML = '';
+                if (config.showpostthumbnails && post.media$thumbnail) {
+                    thumbnailHTML = `
+                        <div class="wrapinfo">
+                            <a href="${postURL}" aria-label="Read more about ${postTitle}">
+                                <img class="recent_thumb" src="${post.media$thumbnail.url.replace('/s72-c/', '/s1600/')}" alt="Thumbnail for ${postTitle}">
+                            </a>
+                        </div>`;
+                }
+
+                let dateHTML = '';
+                if (config.showpostdate) {
+                    dateHTML = `<i>${postDate}</i>`;
+                }
+
+                html += `
+                    <li>
+                        ${thumbnailHTML}
+                        <a href="${postURL}" aria-label="Read more about ${postTitle}">${postTitle}</a>
+                        ${dateHTML}
+                    </li>`;
+            });
+
+            html += '</ul>';
+            container.innerHTML = html;
+        })
+        .catch(error => {
+            console.error("Error fetching recent posts:", error);
+            container.innerHTML = "<p>Could not load recent posts.</p>";
+        });
+});
