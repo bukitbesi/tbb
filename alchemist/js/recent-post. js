@@ -1,67 +1,112 @@
-/**
- * Processes the Blogger JSON feed and displays recent posts.
- * This function is intended to be used as a callback.
- * @param {object} json - The JSON object provided by the Blogger feed.
- */
-function displayRecentPostsArlina(json) {
-    // --- Configuration ---
+(function() {
+    // Configurable variables
     const config = {
-        numposts: 5,
-        showpostthumbnails: true,
-        showpostdate: true,
+        numPosts: 5,
+        showThumbnails: true,
+        displayMore: false,
+        displaySeparator: false,
+        showCommentNum: false,
+        showPostDate: false,
+        showPostSummary: false,
+        numChars: 62,
+        feedUrl: '/feeds/posts/default?orderby=published&alt=json-in-script&callback=renderRecentPosts'
     };
 
-    const container = document.getElementById("recent-posts-container");
-    if (!container) {
-        console.error("Recent posts container not found.");
-        return;
-    }
-
-    const posts = json.feed.entry || [];
-    // Ensure we only display the number of posts specified in the config
-    const postsToShow = posts.slice(0, config.numposts);
-
-    if (postsToShow.length === 0) {
-        container.innerHTML = "<li>No recent posts to display.</li>";
-        return;
-    }
-
-    let html = '<ul class="recent_posts_arlina">';
-
-    postsToShow.forEach(post => {
-        const postTitle = post.title.$t;
-        const postURL = post.link.find(link => link.rel === 'alternate').href;
-        const postDate = new Date(post.published.$t).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
+    // Utility to create elements with attributes and content
+    function createElement(tag, attributes = {}, content = '') {
+        const element = document.createElement(tag);
+        Object.entries(attributes).forEach(([key, value]) => {
+            element.setAttribute(key, value);
         });
+        if (content) element.innerHTML = content;
+        return element;
+    }
 
-        let thumbnailHTML = '';
-        if (config.showpostthumbnails && post.media$thumbnail) {
-            // Higher quality thumbnail by replacing s72-c with s1600
-            const thumbnailUrl = post.media$thumbnail.url.replace('/s72-c/', '/s400/');
-            thumbnailHTML = `
-                <div class="wrapinfo">
-                    <a href="${postURL}" aria-label="Read more about ${postTitle}">
-                        <img class="recent_thumb" src="${thumbnailUrl}" alt="Thumbnail for ${postTitle}">
-                    </a>
-                </div>`;
-        }
+    // Format date
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    }
 
-        let dateHTML = '';
-        if (config.showpostdate) {
-            dateHTML = `<i>${postDate}</i>`;
-        }
+    // Truncate summary
+    function truncateSummary(content, maxLength) {
+        if (content.length <= maxLength) return content;
+        return content.substring(0, maxLength).replace(/\s+\S*$/, '') + '...';
+    }
 
-        html += `
-            <li>
-                ${thumbnailHTML}
-                <a href="${postURL}">${postTitle}</a>
-                ${dateHTML}
-            </li>`;
-    });
+    // Main function to render posts
+    window.renderRecentPosts = function(data) {
+        const posts = data.feed.entry || [];
+        const container = document.querySelector('.recent_posts_arlina');
+        if (!container) return;
 
-    html += '</ul>';
-    container.innerHTML = html;
-}
+        container.innerHTML = ''; // Clear existing content
+
+        posts.slice(0, config.numPosts).forEach(entry => {
+            const li = createElement('li');
+
+            // Thumbnail
+            if (config.showThumbnails && entry['media$thumbnail']) {
+                const thumbnailUrl = entry['media$thumbnail'].url.replace('/s72-c/', '/s1600/');
+                const wrapInfo = createElement('div', { class: 'wrapinfo' });
+                const img = createElement('img', {
+                    class: 'recent_thumb',
+                    src: thumbnailUrl,
+                    alt: entry.title.$t
+                });
+                wrapInfo.appendChild(img);
+                li.appendChild(wrapInfo);
+            }
+
+            // Title
+            const titleLink = createElement('a', {
+                href: entry.link.find(link => link.rel === 'alternate').href,
+                title: entry.title.$t
+            }, entry.title.$t);
+            li.appendChild(titleLink);
+
+            // Post date
+            if (config.showPostDate) {
+                const date = createElement('i', {}, formatDate(entry.published.$t));
+                li.appendChild(date);
+            }
+
+            // Summary
+            if (config.showPostSummary && entry.summary.$t) {
+                const summary = createElement('div', { class: 'post-summary' },
+                    truncateSummary(entry.summary.$t, config.numChars));
+                li.appendChild(summary);
+            }
+
+            // Comment count
+            if (config.showCommentNum && entry.thr$total) {
+                const comments = createElement('i', {}, `${entry.thr$total.$t} comments`);
+                li.appendChild(comments);
+            }
+
+            // Separator
+            if (config.displaySeparator) {
+                li.style.borderBottom = '1px solid #eee';
+            }
+
+            container.appendChild(li);
+        });
+    };
+
+    // Load the feed
+    function loadFeed() {
+        const script = createElement('script', {
+            src: config.feedUrl,
+            async: 'true'
+        });
+        document.body.appendChild(script);
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadFeed);
+    } else {
+        loadFeed();
+    }
+})();
