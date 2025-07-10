@@ -1,6 +1,8 @@
+<div id="recent-posts-container"></div>
+<script>
 // --- Configuration ---
 const config = {
-    blogURL: "https://bukitbesi.blogspot.com",
+    blogURL: "YOUR_BLOG_URL", // Change this to your blog's URL (e.g., "https://yourblog.blogspot.com")
     numposts: 5,
     showpostthumbnails: true,
     showpostdate: true,
@@ -68,3 +70,4 @@ document.addEventListener("DOMContentLoaded", function() {
             container.innerHTML = "<p>Could not load recent posts.</p>";
         });
 });
+</script>
