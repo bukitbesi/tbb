@@ -1,5 +1,3 @@
-<div id="recent-posts-container"></div>
-<script>
 // --- Configuration ---
 const config = {
     blogURL: "YOUR_BLOG_URL", // Change this to your blog's URL (e.g., "https://yourblog.blogspot.com")
@@ -70,4 +68,3 @@ document.addEventListener("DOMContentLoaded", function() {
             container.innerHTML = "<p>Could not load recent posts.</p>";
         });
 });
-</script>
