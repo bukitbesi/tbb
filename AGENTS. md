@@ -1,1 +1,22 @@
+# 🧠 CodexGPT Environment
+
+## Project Type
+Blogger template optimization using vanilla JS, SEO schema, JSON-LD, and Core Web Vitals improvements.
+
+## Languages
+- HTML/XML
+- Vanilla JS (Node 20)
+- CSS
+- Markdown
+
+## Goals
+- SEO-optimized, human-readable output
+- Clean vanilla JS (no frameworks)
+- Responsive layout, CLS-safe
+- AdSense + schema auto-injection
+
+## Security
+- Do not write any real API keys
+- Use placeholders like {{ADSENSE_ID}}
+- Do not commit `.env` or node_modules
 
