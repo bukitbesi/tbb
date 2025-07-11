@@ -17,7 +17,7 @@ const STATIC_ASSETS = [
     'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap',
     'https://cdn.jsdelivr.net/gh/bukitbesi/tbb@main/alchemist/css/styles.css',
     'https://cdn.jsdelivr.net/bukitbesi/tbb@main/alchemist/css/dark.css',
-    'https://cdn.jsdelivr.net/gh/bukitbesi/tbb@main/alchemist/js/alchemist-scripts.js'
+    'https://cdn.jsdelivr.net/gh/bukitbesi/tbb@main/alchemist/js/scripts.js'
 ];
 
 // Assets to cache on demand
