@@ -1,1 +1,7 @@
+# .gitignore
+.env
+apikeys.json
+*.secret
+node_modules/
+dist/
 
