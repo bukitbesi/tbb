@@ -875,13 +875,13 @@
         detectAndGenerateSchemas: function() {
             console.log('🧠 Sentient Schema Engine: Advanced content analysis...');
             
-            this.detectFAQContent();
-            this.detectHowToContent();
-            this.detectVideoContent();
-            this.detectRecipeContent();
-            this.detectReviewContent();
-            this.detectNewsArticle();
-            this.detectProductContent();
+// this.detectFAQContent();
+// this.detectHowToContent();
+// this.detectVideoContent();
+// this.detectRecipeContent();
+// this.detectReviewContent();
+// this.detectNewsArticle();
+// this.detectProductContent();
         },
         
         detectFAQContent: function() {
