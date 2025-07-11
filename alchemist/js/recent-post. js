@@ -12,7 +12,7 @@ const RecentPostsConfig = {
     showPostSummary: false,
     numChars: 62,
     defaultThumbnail: 'https://2.bp.blogspot.com/-Q6S8qhkE33I/V0VwhvhULoI/AAAAAAAAHfQ/VZkkOgl_wX4X59EP31Jpl1swFsj6-n0TQCLcB/s1600/InfoArlina.png',
-    containerId: 'recent-posts-container' // Add this to your HTML where you want the widget
+    containerId: 'recent_posts_arlina' //
 };
 
 // Month names array
