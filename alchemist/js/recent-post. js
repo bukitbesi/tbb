@@ -1,3 +1,6 @@
+// Recent Posts Widget for Blogger - Vanilla JS
+// Optimized for performance and maintainability
+
 // Configuration object - easier to manage
 const RecentPostsConfig = {
     numPosts: 5,
@@ -9,7 +12,7 @@ const RecentPostsConfig = {
     showPostSummary: false,
     numChars: 62,
     defaultThumbnail: 'https://2.bp.blogspot.com/-Q6S8qhkE33I/V0VwhvhULoI/AAAAAAAAHfQ/VZkkOgl_wX4X59EP31Jpl1swFsj6-n0TQCLcB/s1600/InfoArlina.png',
-    containerId: 'recent-posts-container'
+    containerId: 'recent-posts-container' // Add this to your HTML where you want the widget
 };
 
 // Month names array
