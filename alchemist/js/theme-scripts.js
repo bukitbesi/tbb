@@ -700,6 +700,101 @@
     }
   });
 
+// Font Loading Optimization
+(function() {
+  // Only load fonts for text that's actually on the page
+  var fontObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        document.documentElement.classList.add('fonts-loaded');
+        fontObserver.disconnect();
+      }
+    });
+  });
+  
+  var textElements = document.querySelectorAll('h1, h2, h3, p');
+  if (textElements.length > 0) {
+    fontObserver.observe(textElements[0]);
+  }
+})();
+
+// Image Format Optimization
+document.addEventListener('DOMContentLoaded', function() {
+  // Convert images to WebP on supported browsers
+  if ('loading' in HTMLImageElement.prototype) {
+    document.querySelectorAll('img').forEach(function(img) {
+      img.loading = 'lazy';
+      
+      // Add WebP support detection
+      var webp = new Image();
+      webp.onload = webp.onerror = function() {
+        if (webp.height === 2) {
+          // WebP supported
+          if (img.src.includes('.jpg') || img.src.includes('.png')) {
+            img.dataset.originalSrc = img.src;
+            // You can implement WebP conversion here
+          }
+        }
+      };
+      webp.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+    });
+  }
+});
+
+// Content Freshness Signal
+(function() {
+  var posts = document.querySelectorAll('.post-date');
+  posts.forEach(function(post) {
+    var date = new Date(post.textContent);
+    var now = new Date();
+    var days = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+    
+    if (days < 7) {
+      post.innerHTML += ' <span class="fresh-content">🔥 Fresh</span>';
+    } else if (days < 30) {
+      post.innerHTML += ' <span class="recent-content">✨ Recent</span>';
+    }
+  });
+})();
+
+// Reading Time Calculator
+(function() {
+  var content = document.querySelector('.post-body');
+  if (content) {
+    var words = content.textContent.split(' ').length;
+    var readingTime = Math.ceil(words / 200);
+    
+    var readingTimeEl = document.createElement('div');
+    readingTimeEl.className = 'reading-time';
+    readingTimeEl.innerHTML = '⏱️ ' + readingTime + ' min read';
+    
+    content.parentElement.insertBefore(readingTimeEl, content);
+  }
+})();
+
+// Engagement Signals
+document.addEventListener('DOMContentLoaded', function() {
+  // Track scroll depth
+  var scrollPoints = [25, 50, 75, 100];
+  var scrolled = [];
+  
+  window.addEventListener('scroll', debounce(function() {
+    var scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    
+    scrollPoints.forEach(function(point) {
+      if (scrollPercent >= point && !scrolled.includes(point)) {
+        scrolled.push(point);
+        // Send to Analytics
+        if (window.gtag) {
+          gtag('event', 'scroll_depth', {
+            'percent': point
+          });
+        }
+      }
+    });
+  }, 100));
+});
+
   // Global utilities
   window.AlchemistTheme = {
     version: '1.0.0',
