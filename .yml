@@ -1,1 +1,2 @@
-
+- name: gha-ci-issues
+  uses: Mergifyio/gha-mergify-ci@v7
